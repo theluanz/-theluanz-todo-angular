@@ -22,6 +22,7 @@ export class AppComponent {
       this.todos.splice(index, 1);
     }
   }
-  markAsDone(todo: Todo) {}
-  markAsUndone(todo: Todo) {}
+  toggleDone(todo: Todo) {
+    todo.done = !todo.done;
+  }
 }

@@ -2,8 +2,8 @@
 <ul>
   <li *ngFor="let todo of todos">
     {{ todo.id }} - {{ todo.activity }}
-    <button *ngIf="!todo.done" (click)="markAsDone(todo)">Completar</button>
-    <button *ngIf="todo.done" (click)="markAsUndone(todo)">Refazer</button>
+    <button *ngIf="!todo.done" (click)="toggleDone(todo)">Completar</button>
+    <button *ngIf="todo.done" (click)="toggleDone(todo)">Refazer</button>
     |
     <button (click)="removeTodo(todo)">Remover</button>
   </li>
