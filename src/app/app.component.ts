@@ -23,10 +23,6 @@ export class AppComponent {
         ]),
       ],
     });
-
-    this.todos.push(new Todo(1, 'caminar', false));
-    this.todos.push(new Todo(2, 'ir a escola', true));
-    this.todos.push(new Todo(3, 'programar', false));
   }
 
   removeTodo(todo: Todo) {
@@ -34,6 +30,18 @@ export class AppComponent {
     if (index !== -1) {
       this.todos.splice(index, 1);
     }
+  }
+
+  addTodo() {
+    const activity = this.form.controls['activity'].value;
+    const id = this.todos.length
+      ? +this.todos[this.todos.length - 1].id + 1
+      : 1;
+    this.todos.push(new Todo(id, activity, false));
+    this.clearForm();
+  }
+  clearForm() {
+    this.form.reset();
   }
   toggleDone(todo: Todo) {
     console.log(this.form.controls['activity'].pristine);

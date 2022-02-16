@@ -1,4 +1,5 @@
 <h1>{{ title }}</h1>
+<p *ngIf="todos.length == 0">Não há nenhuma tarefa disponível</p>
 <ul>
   <li *ngFor="let todo of todos">
     {{ todo.id }} - {{ todo.activity }}
@@ -29,6 +30,6 @@
     >
       This text must be between 3 and 60 characters
     </small>
-    <button [disabled]="form.invalid">Salvar</button>
+    <button [disabled]="form.invalid" (click)="addTodo()">Salvar</button>
   </fieldset>
 </form>
