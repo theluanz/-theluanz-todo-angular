@@ -8,3 +8,27 @@
     <button (click)="removeTodo(todo)">Remover</button>
   </li>
 </ul>
+
+<form [formGroup]="form">
+  <fieldset>
+    <label>Tarefa</label>
+    <input
+      type="text"
+      placeholder="Your Todo"
+      maxlength="60"
+      minlength="3"
+      id="activity"
+      formControlName="activity"
+      class="form-control"
+      required
+    />
+    <small
+      *ngIf="
+        form.controls['activity'].invalid && !form.controls['activity'].pristine
+      "
+    >
+      This text must be between 3 and 60 characters
+    </small>
+    <button [disabled]="form.invalid">Salvar</button>
+  </fieldset>
+</form>
