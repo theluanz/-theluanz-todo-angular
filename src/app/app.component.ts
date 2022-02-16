@@ -23,6 +23,7 @@ export class AppComponent {
         ]),
       ],
     });
+    this.loadTodosOfLocalStorage();
   }
 
   removeTodo(todo: Todo) {
@@ -30,6 +31,7 @@ export class AppComponent {
     if (index !== -1) {
       this.todos.splice(index, 1);
     }
+    this.saveInLocalStorage();
   }
 
   addTodo() {
@@ -38,13 +40,31 @@ export class AppComponent {
       ? +this.todos[this.todos.length - 1].id + 1
       : 1;
     this.todos.push(new Todo(id, activity, false));
+    this.saveInLocalStorage();
     this.clearForm();
   }
+
   clearForm() {
     this.form.reset();
   }
+
   toggleDone(todo: Todo) {
     console.log(this.form.controls['activity'].pristine);
     todo.done = !todo.done;
+    this.saveInLocalStorage();
+  }
+
+  saveInLocalStorage() {
+    const data = JSON.stringify(this.todos);
+    localStorage.setItem('todos', data);
+  }
+
+  loadTodosOfLocalStorage() {
+    const data = localStorage.getItem('todos');
+    if (data) {
+      this.todos = JSON.parse(data);
+    } else {
+      this.todos = [];
+    }
   }
 }
