@@ -8,6 +8,7 @@ import { Todo } from 'src/models/todo.model';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
+  public mode: String = 'list';
   public todos: Todo[] = [];
   public title: String = 'My todos';
   public form: FormGroup;
@@ -42,6 +43,7 @@ export class AppComponent {
     this.todos.push(new Todo(id, activity, false));
     this.saveInLocalStorage();
     this.clearForm();
+    this.changeMode('list');
   }
 
   clearForm() {
@@ -66,5 +68,8 @@ export class AppComponent {
     } else {
       this.todos = [];
     }
+  }
+  changeMode(mode: String) {
+    this.mode = mode;
   }
 }

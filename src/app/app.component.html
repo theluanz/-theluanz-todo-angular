@@ -1,18 +1,24 @@
-<h1>{{ title }}</h1>
-<p *ngIf="todos.length == 0">Não há nenhuma tarefa disponível</p>
-<ul>
-  <li *ngFor="let todo of todos">
-    {{ todo.id }} - {{ todo.activity }}
-    <button *ngIf="!todo.done" (click)="toggleDone(todo)">Completar</button>
-    <button *ngIf="todo.done" (click)="toggleDone(todo)">Refazer</button>
-    |
-    <button (click)="removeTodo(todo)">Remover</button>
-  </li>
-</ul>
-
-<form [formGroup]="form">
-  <fieldset>
-    <label>Tarefa</label>
+<h1 class="title">{{ title }}</h1>
+<div class="modal" *ngIf="mode == 'list'">
+  <p *ngIf="todos.length == 0">Não há nenhuma tarefa disponível</p>
+  <ul>
+    <li *ngFor="let todo of todos">
+      <p>{{ todo.id }} - {{ todo.activity }}</p>
+      <button *ngIf="!todo.done" (click)="toggleDone(todo)">
+        <i class="far fa-check-circle"></i>
+      </button>
+      <button *ngIf="todo.done" (click)="toggleDone(todo)">
+        <i class="fas fa-check-circle"></i>
+      </button>
+      <button (click)="removeTodo(todo)">
+        <i class="far fa-trash-alt"></i>
+      </button>
+    </li>
+  </ul>
+</div>
+<div class="modal" *ngIf="mode == 'add'">
+  <form [formGroup]="form">
+    <label>New Todo</label>
     <input
       type="text"
       placeholder="Your Todo"
@@ -20,16 +26,34 @@
       minlength="3"
       id="activity"
       formControlName="activity"
-      class="form-control"
       required
     />
     <small
+      class="danger"
       *ngIf="
         form.controls['activity'].invalid && !form.controls['activity'].pristine
       "
     >
       This text must be between 3 and 60 characters
     </small>
-    <button [disabled]="form.invalid" (click)="addTodo()">Salvar</button>
-  </fieldset>
-</form>
+    <button class="btn" [disabled]="form.invalid" (click)="addTodo()">
+      Add
+    </button>
+  </form>
+</div>
+
+<button
+  class="add-button btn"
+  (click)="changeMode('add')"
+  *ngIf="mode == 'list'"
+>
+  <i class="fas fa-plus-circle"></i>
+</button>
+
+<button
+  class="add-button btn"
+  (click)="changeMode('list')"
+  *ngIf="mode == 'add'"
+>
+  <i class="fas fa-times"></i>
+</button>
